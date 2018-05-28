@@ -6,6 +6,6 @@ export class AppPage {
   }
 
   getParagraphText() {
-    return element(by.css('Welcome to WebTV1')).getText();
+    return element(by.css('Welcome to ')).getText();
   }
 }
