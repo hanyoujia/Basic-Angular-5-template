@@ -1,0 +1,60 @@
+<div [tc-responsive-content]="[
+                              {name:'widget', min: '0px', className: 'tc-widget-view'},
+                              {name:'mobile', min: '320px', className: 'tc-mobile-view'},
+                              {name:'tablet', min: '720px',className: 'tc-tablet-view'},
+                              {name:'desktop', min: '1024px',className: 'tc-full-res-view'}]" class='tc-web-tv' (responsiveState)="onResponsiveStateChange($event)">
+
+  <div class='tc-tv-container'>
+    <div class='tc-large-tv-body'>
+      <div class='tc-large-video' [style.height]="videoHeight">
+        <!--  -->
+        <video on-mouseover='hover()' on-mouseout="hideControls()" #webTVDiv type="video/mp4" src={{selectedItem.url}} poster="{{selectedItem.image_url}}"
+          class="tc-video-config" on-click="playVideo()"></video>
+      </div>
+      <!--  -->
+      <div class='tc-large-subvideo-container' [style.height.px]="rightPanelListHeight">
+        <perfect-scrollbar style="width: 100%; height: 100%; padding: 10px 0 10px 0;">
+          <div class='tc-large-subvideo' *ngFor="let subVideo of videoData" (click)="onClick(subVideo)">
+            <div class='tc-large-subvideo-thumb'>
+              <img src="{{subVideo.thumbnail_url}}">
+            </div>
+            <div class='tc-large-subvideo-detail'>
+              <div tc-ellipsis class='tc-large-subvideo-title'>{{subVideo.title}}</div>
+              <div tc-ellipsis class='tc-large-subvideo-description'> {{subVideo.description}} </div>
+            </div>
+          </div>
+        </perfect-scrollbar>
+      </div>
+      <!--  -->
+    </div>
+
+    <div class='tc-large-view-detail' #viewDesktopDetail>
+      <div class='tc-large-view-footer-title'>{{selectedItem.title}}</div>
+      <div class='tc-large-view-footer-description'>{{selectedItem.description}}</div>
+    </div>
+
+    <div class='tc-view-detail' #viewMobileDetail>
+      <i *ngIf="!displayDiscription" class="arrow-down tc_dropdown_icon" (click)="toggle()"></i>
+      <i *ngIf="displayDiscription" class="arrow-up tc_dropdown_icon" (click)="toggle()"></i>
+      <div class='tc-mobile-view-footer-title'>{{selectedItem.title}}</div>
+      <div *ngIf="displayDiscription" class='tc-mobile-view-footer-description'>{{selectedItem.description}}</div>
+    </div>
+
+
+    <perfect-scrollbar style="width: 100%; height: 100%;">
+      <div class='tc-tablet-subvideo-container' [style.height.px]="sublistFooterHeight">
+        <div class='tc-tablet-subvideo' *ngFor="let subVideo of videoData" (click)="onClick(subVideo)">
+          <div>
+            <img class='tc-subvideo-thumb' src="{{subVideo.thumbnail_url}}">
+          </div>
+          <div class='tc-tablet-subvideo-detail'>
+            <div tc-ellipsis class='tc-tablet-subvideo-title'>{{subVideo.title}}</div>
+            <div tc-ellipsis class='tc-tablet-subvideo-description'> {{subVideo.description}} </div>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+
+
+  </div>
+</div>
